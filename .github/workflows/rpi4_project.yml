@@ -19,8 +19,8 @@ on:
       - 'config/project/rpi4-project.config'
   schedule:
     - cron: 0 18 * * *
-#  watch:
-#    types: started
+  watch:
+    types: started
 
 env:
   REPO_URL: https://github.com/project-openwrt/openwrt
@@ -43,6 +43,10 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
+
+    - name: SSH connection to Actions
+      uses: cheviss/debugger-action@master
+
     - name: Checkout
       uses: actions/checkout@master
 
