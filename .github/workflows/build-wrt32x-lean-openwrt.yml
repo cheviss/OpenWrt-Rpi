@@ -25,12 +25,12 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  CONFIG_FILE: config/lean/wrt32x-lean-openwrt.config
-  DEVICE: openwrt-cortexa9_DEVICE_linksys_wrt32x
+  CONFIG_FILE: config/lean/wrt32x-lean-openwrt-2.config
+  DEVICE: openwrt-mvebu-cortexa9-linksys-wrt32x
   DIY_SH: scripts/lean-openwrt.sh
   SSH_ACTIONS: false
   KMODS_IN_FIRMWARE: true
-  UPLOAD_EXT4_IMAGES: true
+  UPLOAD_EXT4_IMAGES: false
   UPLOAD_SQUASHFS_IMAGES: true
   UPLOAD_ROOTFS: true
   UPLOAD_WETRANSFER: true
