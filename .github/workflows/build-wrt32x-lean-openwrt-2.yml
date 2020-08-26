@@ -26,7 +26,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   CONFIG_FILE: config/lean/wrt32x-lean-openwrt-2.config
-  DEVICE: openwrt-mvebu_cortexa9_linksys_wrt32x
+  DEVICE: openwrt-mvebu-cortexa9-linksys-wrt32x
   DIY_SH: scripts/lean-openwrt.sh
   SSH_ACTIONS: false
   KMODS_IN_FIRMWARE: true
