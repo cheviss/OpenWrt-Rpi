@@ -30,7 +30,7 @@ env:
   DIY_SH: scripts/lean-openwrt.sh
   SSH_ACTIONS: false
   KMODS_IN_FIRMWARE: true
-  UPLOAD_EXT4_IMAGES: true
+  UPLOAD_EXT4_IMAGES: false
   UPLOAD_SQUASHFS_IMAGES: true
   UPLOAD_ROOTFS: true
   UPLOAD_WETRANSFER: true
