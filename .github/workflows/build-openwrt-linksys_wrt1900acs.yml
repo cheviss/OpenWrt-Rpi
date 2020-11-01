@@ -9,6 +9,7 @@ name: Build OpenWrt for Linksys WRT1900ACS
 
 on:
   repository_dispatch:
+    types: [lean, wrt1900acs]
   workflow_dispatch:
   release:
     types: published
