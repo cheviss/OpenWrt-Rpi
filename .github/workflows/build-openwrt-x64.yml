@@ -1,29 +1,40 @@
 #========================================================================================================================
-# Description: Automatically Build OpenWrt for GlNet B1300
-# Function: Workflows for Build GlNet B1300
+# https://github.com/ophub/op
+# Description: Automatically Build OpenWrt for x64
+# Function: Workflows for x64
 # Cron: min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday)
 #========================================================================================================================
 
-name: Build OpenWrt for GlNet B1300
+name: Build OpenWrt for x64
 
 on:
   repository_dispatch:
-    types: [lean, GlNet_b1300]
   workflow_dispatch:
-  release:
-    types: published
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+  #release:
+    #types: published
+  #push:
+    #branches:
+      #- main
+    #paths:
+      #- 'router/x64/.config'
+      #- '.github/workflows/build-openwrt-x64.yml'
   schedule:
-    - cron: 0 20 * * 0
-  watch:
-    types: started
+    - cron: '0 20 * * 0'
+  #watch:
+    #types: started
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: router/GlNet_b1300/.config
-  DIY_P1_SH: router/GlNet_b1300/diy-part1.sh
-  DIY_P2_SH: router/GlNet_b1300/diy-part2.sh
+  CONFIG_FILE: router/x64/.config
+  DIY_P1_SH: router/x64/diy-part1.sh
+  DIY_P2_SH: router/x64/diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -39,7 +50,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@main
+      uses: actions/checkout@v2
 
     - name: Initialization environment
       env:
@@ -135,7 +146,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
+        name: openwrt_x64_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
         path: ${{ env.FILEPATH }}
         retention-days: ${{ env.RECENT_LASTEST }}
 
@@ -159,11 +170,11 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.FILEPATH }}
-        tag: openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
+        tag: openwrt_x64_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
         body: |
-          This is OpenWrt firmware for ${{ env.DEVICE_NAME }}
+          This is OpenWrt firmware for X64 ${{ env.DEVICE_NAME }}
           * Firmware information
           Default IP: 192.168.1.1
           Default username: root
