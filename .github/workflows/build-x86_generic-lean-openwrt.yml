@@ -13,7 +13,7 @@ on:
     types: [lean, x86_generic]
   workflow_dispatch:
   schedule:
-    - cron: 0 18 * * *
+    - cron: 0 18 * * 0
 #  watch:
 #    types: started
 
