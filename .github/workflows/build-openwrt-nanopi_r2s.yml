@@ -1,33 +1,40 @@
 #========================================================================================================================
-# Description: Automatically Build OpenWrt for GlNet B1300
-# Function: Workflows for Build GlNet B1300
+# https://github.com/ophub/op
+# Description: Automatically Build OpenWrt for NanoPi R2S
+# Function: Workflows for Build NanoPi R2S
 # Cron: min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday)
 #========================================================================================================================
 
-name: Build OpenWrt for GlNet B1300
+name: Build OpenWrt for NanoPi R2S
 
 on:
   repository_dispatch:
-    types: [lean, GlNet_b1300]
   workflow_dispatch:
-  release:
-    types: published
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+  #release:
+    #types: published
+  #push:
+    #branches:
+      #- main
+    #paths:
+      #- 'router/nanopi_r2s/.config'
+      #- '.github/workflows/build-openwrt-nanopi_r2s.yml'
   schedule:
-<<<<<<< HEAD
-    - cron: 0 20 * * *
-=======
-    - cron: 0 20 * * 0
->>>>>>> 94d8d6a47514e5129c60063580b26f4e7e801fa6
-  watch:
-    types: started
+    - cron: '0 20 * * 0'
+  #watch:
+    #types: started
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: router/GlNet_b1300/.config
-  DIY_P1_SH: router/GlNet_b1300/diy-part1.sh
-  DIY_P2_SH: router/GlNet_b1300/diy-part2.sh
+  CONFIG_FILE: router/nanopi_r2s/.config
+  DIY_P1_SH: router/nanopi_r2s/diy-part1.sh
+  DIY_P2_SH: router/nanopi_r2s/diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -43,7 +50,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@main
+      uses: actions/checkout@v2
 
     - name: Initialization environment
       env:
@@ -52,6 +59,7 @@ jobs:
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
+        wget -O- https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh | bash
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"

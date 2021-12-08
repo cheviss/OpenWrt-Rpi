@@ -14,7 +14,11 @@ on:
   release:
     types: published
   schedule:
+<<<<<<< HEAD
     - cron: 0 20 * * *
+=======
+    - cron: 0 20 * * 0
+>>>>>>> 94d8d6a47514e5129c60063580b26f4e7e801fa6
   watch:
     types: started
 
